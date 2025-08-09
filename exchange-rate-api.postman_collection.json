@@ -1,0 +1,145 @@
+{
+  "info": {
+    "name": "Exchange Rate API",
+    "description": "Collection for the Exchange Rate API endpoints",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Get Exchange Rate",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/exchange-rate?dni={{dni}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "exchange-rate"
+          ],
+          "query": [
+            {
+              "key": "dni",
+              "value": "{{dni}}",
+              "description": "The client's DNI (required)"
+            }
+          ]
+        },
+        "description": "Get the current exchange rate. Requires a valid DNI parameter. There is a daily limit of 10 queries per DNI."
+      },
+      "response": [
+        {
+          "name": "Successful Response",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/exchange-rate?dni=12345678",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "exchange-rate"
+              ],
+              "query": [
+                {
+                  "key": "dni",
+                  "value": "12345678"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n    \"fecha\": \"2025-08-09\",\n    \"compra\": 3.75,\n    \"venta\": 3.78,\n    \"origen\": \"free.e-api.net.pe\",\n    \"moneda\": \"USD\"\n}",
+          "_postman_previewlanguage": "json"
+        },
+        {
+          "name": "Too Many Requests",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/exchange-rate?dni=12345678",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "exchange-rate"
+              ],
+              "query": [
+                {
+                  "key": "dni",
+                  "value": "12345678"
+                }
+              ]
+            }
+          },
+          "status": "Too Many Requests",
+          "code": 429,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n    \"error\": \"Daily query limit exceeded for DNI: 12345678\"\n}",
+          "_postman_previewlanguage": "json"
+        },
+        {
+          "name": "Bad Request - Missing DNI",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/exchange-rate",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "exchange-rate"
+              ]
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n    \"error\": \"DNI is required\"\n}",
+          "_postman_previewlanguage": "json"
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "string",
+      "description": "Base URL for the Exchange Rate API"
+    },
+    {
+      "key": "dni",
+      "value": "12345678",
+      "type": "string",
+      "description": "Sample DNI value"
+    }
+  ]
+}
