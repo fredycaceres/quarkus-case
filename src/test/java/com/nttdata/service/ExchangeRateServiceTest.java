@@ -4,13 +4,12 @@ import com.nttdata.client.ExchangeRateClient;
 import com.nttdata.dto.ExchangeRateResponse;
 import com.nttdata.model.ExchangeRateQuery;
 import io.quarkus.test.junit.QuarkusTest;
-import io.quarkus.test.junit.mockito.InjectSpy;
-import jakarta.inject.Inject;
 import jakarta.ws.rs.WebApplicationException;
-import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import java.time.LocalDate;
 
@@ -22,17 +21,19 @@ import static org.mockito.Mockito.*;
 @QuarkusTest
 public class ExchangeRateServiceTest {
 
-    @Inject
+    @InjectMocks
     ExchangeRateService exchangeRateService;
 
-    @InjectSpy
-    @RestClient
+    @Mock
     ExchangeRateClient exchangeRateClient;
 
     private ExchangeRateResponse mockResponse;
 
     @BeforeEach
     public void setup() {
+        // Initialize mocks
+        MockitoAnnotations.openMocks(this);
+        
         // Prepare mock response
         mockResponse = new ExchangeRateResponse();
         mockResponse.setDate("2025-08-09");

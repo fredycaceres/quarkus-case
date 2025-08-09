@@ -13,8 +13,15 @@ dependencies {
     implementation 'io.quarkus:quarkus-rest-client-jackson'
     implementation 'io.quarkus:quarkus-rest-jackson'
     implementation 'io.quarkus:quarkus-hibernate-orm-panache'
+    implementation 'io.quarkus:quarkus-hibernate-validator'
+    implementation 'io.quarkus:quarkus-jdbc-h2'
     implementation 'io.quarkus:quarkus-arc'
+    
+    // Test dependencies
     testImplementation 'io.quarkus:quarkus-junit5'
+    testImplementation 'io.quarkus:quarkus-junit5-mockito'
+    testImplementation 'io.rest-assured:rest-assured'
+    testImplementation 'org.mockito:mockito-core'
 }
 
 group 'com.nttdata'
